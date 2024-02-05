@@ -26,6 +26,7 @@
     "i18next-chained-backend": "^4.6.2",
     "i18next-http-backend": "^2.4.2",
     "i18next-resources-to-backend": "^1.2.0",
+    "jekyll": "^3.0.0-beta1",
     "mdb-react-ui-kit": "^7.1.0",
     "nanoid": "^5.0.4",
     "react": "^18.2.0",
