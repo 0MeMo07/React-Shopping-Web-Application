@@ -164,7 +164,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             <FaRegStar />
           </Badge>
         </IconButton>
-        <p>Favorites</p>
+        <Link to="/Favorites" className='İconLinks'>Favorites</Link>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -176,7 +176,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
         >
           <FaShoppingCart />
         </IconButton>
-        <p>Cart</p>
+        <Link to="/cart" className="İconLinks">Cart</Link>
       </MenuItem>
     </Menu>
   );
