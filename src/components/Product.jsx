@@ -134,6 +134,6 @@ function Product({ product, total, money, basket, setBasket, value }) {
       </BoxSide>
     </>
   );
-}
+};
 
 export default Product;

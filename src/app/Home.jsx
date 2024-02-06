@@ -3,6 +3,7 @@ import Header from '../components/Search';
 import Product from '../components/Product';
 import Basket from '../components/Basket';
 import '../css/Home.css'
+import Slide from '../components/Slide';
 
 export default function Home() {
     const [money] = useState(1000);
@@ -66,9 +67,13 @@ export default function Home() {
     return (
         <div className='Main'>
             <Header onSearch={handleSearch} />
+
             {total > 0 && (
                 <Basket resetBasket={resetBasket} total={total} products={filteredProducts} basket={basket} />
             )}
+            <div className='Slide'>
+                <Slide/>
+            </div>
             <div className="categories-container">
                 {categories.map(category => (
                     <div key={category} className="category-container">
