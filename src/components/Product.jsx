@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
 import toast, { Toaster } from 'react-hot-toast';
+import { IoIosHeart, IoMdHeartEmpty } from "react-icons/io";
 
 
 const BoxSide = styled.div`
@@ -55,7 +56,6 @@ function Product({ product, total, money, basket, setBasket, value }) {
         },
       ]);
     }
-  
     setTimeout(() => {
       toast.success('The product has been successfully added to the cart', {
         style: {
@@ -65,6 +65,8 @@ function Product({ product, total, money, basket, setBasket, value }) {
     }, 0);
   };
 
+
+  
   const removeBasket = () => {
     const currentBasket = basket.find((item) => item.id === product.id);
     const basketWithoutCurrent = basket.filter(
@@ -98,11 +100,15 @@ function Product({ product, total, money, basket, setBasket, value }) {
           marginLeft="10px"
           borderRadius="20px"
         >
-          <Uppernumber>
+          {/* <Uppernumber>
             <Typography className="amount" variant="body1">
               {basketItem && basketItem.amount || 0}
             </Typography>
-          </Uppernumber>
+          </Uppernumber> */}
+          <Button >
+            <IoIosHeart>
+            </IoIosHeart>
+          </Button>
           <img
             src={product.thumbnail}
             alt=""

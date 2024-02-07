@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../css/Cart.css'
 
 export default function Cart() {
+  // const[total, SetTotal] = useState('')
+  // useEffect(() => {
+  //   setTotal(
+  //       basket.reduce((acc, item) => {
+  //           return acc + item.total;
+  //       }, 0)
+  //   );
+  // }, [basket]);
   return (
     <>
 
