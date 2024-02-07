@@ -107,13 +107,11 @@ function Product({ product, total, money, basket, setBasket, value }) {
     const productId = product.id;
     const favorites = JSON.parse(localStorage.getItem('Favorites')) || [];
 
-    // Favoriye eklenmediyse veya favoriden kaldırıldıysa, işlem gerçekleştir
     if (!isFavorite) {
-      // Favoriye ekle
       favorites.push(productId);
       localStorage.setItem('Favorites', JSON.stringify(favorites));
 
-      toast.success('Ürün başarıyla favorilere eklendi', {
+      toast.success('Product successfully added to favorites', {
         style: {
           boxShadow: 'none',
         },
@@ -123,7 +121,7 @@ function Product({ product, total, money, basket, setBasket, value }) {
       const updatedFavorites = favorites.filter((favId) => favId !== productId);
       localStorage.setItem('Favorites', JSON.stringify(updatedFavorites));
 
-      toast.success('Ürün favorilerden kaldırıldı', {
+      toast.success('Product removed from favorites', {
         style: {
           boxShadow: 'none',
         },
