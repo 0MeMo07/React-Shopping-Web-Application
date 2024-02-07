@@ -20,20 +20,51 @@ const İconSize = styled.i`
   text-align: center;
 `;
 
-const Uppernumber = styled.div`
-  border: 2px solid #eee;
-  background-color: #eee;
-  width: 40px;
-  height: 20px;
-  text-align: center;
-  border-radius: 15px;
+// const Uppernumber = styled.div`
+//   border: 2px solid #eee;
+//   background-color: #eee;
+//   width: 40px;
+//   height: 20px;
+//   text-align: center;
+//   border-radius: 15px;
+// `;
+
+// const Heart = styled.i`
+//   padding: 0px 0px;
+//   position: absolute;
+//   /* margin-left: 120px;
+//   margin-top: 20px; */
+//   left: 0;
+// `;
+
+const IconButton = styled(Button)`
+  && {
+    padding: 0; 
+    min-width: unset; 
+    width: auto; 
+    left: 0;
+  }
 `;
 
+const HeartIconEmpty = styled(IoMdHeartEmpty)`
+  font-size: 24px;
+  margin-left: 200px;
+  margin-top: 20px;
+  position: absolute;
+`;
+
+const HeartIcon = styled(IoIosHeart)`
+  font-size: 24px;
+  margin-left: 200px;
+  margin-top: 20px;
+  color:red;
+  position: absolute;
+`;
 // const CartImg = styled.img`
 //   width: 100px;
 //   height: 100px;
 //   margin-bottom: 20px;
-//   border-radius: 10px;
+//   border-radius: 10px; 26
 // `;
 
 function Product({ product, total, money, basket, setBasket, value }) {
@@ -65,6 +96,43 @@ function Product({ product, total, money, basket, setBasket, value }) {
     }, 0);
   };
 
+  const [isFavorite, setIsFavorite] = useState(checkIfFavorite(product.id));
+
+  function checkIfFavorite(productId) {
+    const favorites = JSON.parse(localStorage.getItem('Favorites')) || [];
+    return favorites.includes(productId);
+  }
+
+  const toggleFavorite = () => {
+    const productId = product.id;
+    const favorites = JSON.parse(localStorage.getItem('Favorites')) || [];
+
+    // Favoriye eklenmediyse veya favoriden kaldırıldıysa, işlem gerçekleştir
+    if (!isFavorite) {
+      // Favoriye ekle
+      favorites.push(productId);
+      localStorage.setItem('Favorites', JSON.stringify(favorites));
+
+      toast.success('Ürün başarıyla favorilere eklendi', {
+        style: {
+          boxShadow: 'none',
+        },
+      });
+    } else {
+      // Favoriden kaldır
+      const updatedFavorites = favorites.filter((favId) => favId !== productId);
+      localStorage.setItem('Favorites', JSON.stringify(updatedFavorites));
+
+      toast.success('Ürün favorilerden kaldırıldı', {
+        style: {
+          boxShadow: 'none',
+        },
+      });
+    }
+
+    // Favori durumunu güncelle
+    setIsFavorite(!isFavorite);
+  };
 
   
   const removeBasket = () => {
@@ -105,10 +173,10 @@ function Product({ product, total, money, basket, setBasket, value }) {
               {basketItem && basketItem.amount || 0}
             </Typography>
           </Uppernumber> */}
-          <Button >
-            <IoIosHeart>
-            </IoIosHeart>
-          </Button>
+          <IconButton variant="icon" onClick={toggleFavorite}>
+            {checkIfFavorite(product.id) ? <HeartIcon /> : <HeartIconEmpty />}
+          </IconButton>
+
           <img
             src={product.thumbnail}
             alt=""
