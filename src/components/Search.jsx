@@ -10,7 +10,6 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { FaFilter } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
@@ -19,6 +18,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from 'styled-components';
+import { IoIosHeart} from "react-icons/io";
+import FavoritesCount from '../hooks/FavoritesCount'
 import '../css/Routes.css'
 
 const darkTheme = createTheme({
@@ -76,23 +77,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({ product, total, money, basket, setBasket, onSearch }) {
-  // const [marginTop, setMarginTop] = useState(0);
-
-  // useEffect(() => {
-  //   const $sidebar = document.getElementById('menu'); 
-  //   const offsetTop = $sidebar.offsetTop; 
-
-  //   const handleScroll = () => {
-  //     const newMarginTop = Math.max(0, window.scrollY - offsetTop + 1);
-  //     setMarginTop(newMarginTop);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
+  const favoritesCount = FavoritesCount();
 
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -148,7 +133,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge color="error">
             <FaFilter />
           </Badge>
         </IconButton>
@@ -160,8 +145,8 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <FaRegStar />
+          <Badge badgeContent={favoritesCount} color="error">
+            <IoIosHeart />
           </Badge>
         </IconButton>
         <Link to="/Favorites" className='İconLinks'>Favorites</Link>
@@ -226,7 +211,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                <Badge badgeContent={4} color="error">
+                <Badge color="error">
                   <FaFilter />
                 </Badge>
               </IconButton>
@@ -235,8 +220,8 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <Badge badgeContent={17} color="error">
-                  <Link to="/Favorites" className='İconLinks'><FaRegStar className='İconLinks'/></Link>
+                <Badge badgeContent={favoritesCount} color="error">
+                  <Link to="/Favorites" className='İconLinks'><IoIosHeart className='İconLinks'/></Link>
                 </Badge>
               </IconButton>
               <IconButton

@@ -21,7 +21,6 @@ function App() {
           path="/cart"
           element={
             <>
-              <SearchBar />
               <Cart />
             </>
           }

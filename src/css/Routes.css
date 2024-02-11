@@ -2,3 +2,12 @@
     text-decoration: none;
     color: white;
 }
+
+.FavİconLinks{
+    text-decoration: none;
+}
+
+.FavİconLinks:hover{
+    color: none;
+    text-decoration: none;
+}
