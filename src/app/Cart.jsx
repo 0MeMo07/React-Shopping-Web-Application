@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CartProductNotFound from '../components/CartProductNotFound';
 import { Link } from 'react-router-dom';
-import { BsCircleFill, BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
+import { BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
 import '../css/Cart.css'
 
 export default function Cart() {
@@ -128,7 +128,13 @@ export default function Cart() {
       }
     }
   };
-  
+
+  let totalPrice = 0;
+  productDetails.map((product, index) => {
+    totalPrice += product.price * product.quantity;
+  });
+
+
   
   
   return (
@@ -166,7 +172,7 @@ export default function Cart() {
                     </div>
                   </div>
                   <div className="d-flex flex-row align-items-center">
-                    <span className="d-block ml-5 font-weight-bold">${product.price}</span>
+                    <span className="d-block ml-5 font-weight-bold">${product.price * product.quantity}</span>
                     <span className="d-block ml-5 font-weight-bold" id= "AddQuantity-RemoveQuantity">
                     <BsChevronCompactLeft onClick={() => RemoveQuantity(product.id)} id="Leftİcon"/>
                     {product.quantity}
@@ -211,14 +217,21 @@ export default function Cart() {
                   <input type="text" className="form-control credit-inputs" placeholder="342" />
                 </div>
               </div>
+              <div>
               <hr className="line" />
-              <div className="d-flex justify-content-between information"><span>Subtotal</span><span>$3000.00</span></div>
-              <div className="d-flex justify-content-between information"><span>Shipping</span><span>$20.00</span></div>
-              <div className="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$3020.00</span></div>
+              <div className="d-flex justify-content-between information">
+                <span>Subtotal</span>
+                <span>{totalPrice }</span>
+              </div>
+              <div className="d-flex justify-content-between information">
+                <span>Total (Incl. taxes)</span>
+                <span>{totalPrice}</span>
+              </div>
               <button className="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
-                <span>$3020.00</span>
-                <span>Checkout<i className="fa fa-long-arrow-right ml-1"></i></span>
+                <span>{totalPrice}</span>
+                <span>Checkout <i className="fa fa-long-arrow-right ml-1"></i></span>
               </button>
+            </div>
             </div>
           </div>
         </div>
