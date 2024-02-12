@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/React-Market-Application/static/css/main.4b513b36.css",
-    "main.js": "/React-Market-Application/static/js/main.2797aff9.js",
+    "main.js": "/React-Market-Application/static/js/main.daf32048.js",
     "static/js/787.c2e87f03.chunk.js": "/React-Market-Application/static/js/787.c2e87f03.chunk.js",
     "static/media/BrokenHeart.png": "/React-Market-Application/static/media/BrokenHeart.6e5912f8161c412cf253.png",
     "static/media/CartEmpty.png": "/React-Market-Application/static/media/CartEmpty.2e8a8f91900b3eeca331.png",
     "index.html": "/React-Market-Application/index.html",
     "main.4b513b36.css.map": "/React-Market-Application/static/css/main.4b513b36.css.map",
-    "main.2797aff9.js.map": "/React-Market-Application/static/js/main.2797aff9.js.map",
+    "main.daf32048.js.map": "/React-Market-Application/static/js/main.daf32048.js.map",
     "787.c2e87f03.chunk.js.map": "/React-Market-Application/static/js/787.c2e87f03.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4b513b36.css",
-    "static/js/main.2797aff9.js"
+    "static/js/main.daf32048.js"
   ]
 }
