@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import '../css/Favorites.css'
 import '../css/Routes.css';
 
-export default function Favorites() {
+export default function Favorites({ product, total, money, basket, setBasket, value }) {
   const [favoritesCount, setFavoritesCount] = useState(0);
   const [products, setProducts] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
@@ -60,6 +60,49 @@ export default function Favorites() {
     setFavoritesCount(prevCount => prevCount - 1); 
   };
 
+  const addBasket = () => {
+    const checkBasket = basket.find((item) => item.id === product.id);
+    if (checkBasket) {
+      checkBasket.amount += 1;
+      setBasket([
+        ...basket.filter((item) => item.id !== product.id),
+        checkBasket,
+      ]);
+    } else {
+      setBasket([
+        ...basket,
+        {
+          id: product.id,
+          amount: 1,
+        },
+      ]);
+    }
+
+  };
+  const [ProductItem, setProductItem] = useState(checkIfProduct());
+
+  function checkIfProduct(productİtemId){
+    const ProductsItems = JSON.parse(localStorage.getItem('Products')) || [];
+    return ProductsItems.includes(productİtemId)
+  }
+  
+  const toggleProduct = (productId) => {
+    let ProductItems = JSON.parse(localStorage.getItem('Products')) || [];
+  
+    const productIndex = ProductItems.findIndex(item => item.id === productId);
+  
+    if (productIndex === -1) {
+      
+      ProductItems.push({ id: productId, quantity: 1 });
+    } else {
+      
+      ProductItems[productIndex].quantity += 1;
+    }
+  
+    localStorage.setItem('Products', JSON.stringify(ProductItems));
+    setProductItem(!ProductItem);
+  
+  };
   return (
     <>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -90,6 +133,7 @@ export default function Favorites() {
             </div>
             <div className="d-flex flex-row align-items-center">
               <span className="d-block ml-5 font-weight-bold">${product.price}</span>
+              <Button className="d-block ml-3 font-weight-bold" onClick={() => toggleProduct(product.id)}><Link to="/cart" className='FavİconLinks'>Go To Cart </Link></Button>
               <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteFavorite(product.id)}></i>
             </div>
           </div>

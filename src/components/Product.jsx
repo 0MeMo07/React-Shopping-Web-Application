@@ -68,8 +68,67 @@ const HeartIcon = styled(IoIosHeart)`
 // `;
 
 function Product({ product, total, money, basket, setBasket, value }) {
-  const basketItem = basket.find((item) => item.id === product.id);
 
+  const [ProductItem, setProductItem] = useState(checkIfProduct(product.id));
+
+  function checkIfProduct(productİtemId){
+    const ProductsItems = JSON.parse(localStorage.getItem('Products')) || [];
+    return ProductsItems.includes(productİtemId)
+  }
+  
+  const toggleProduct = () => {
+    const productId = product.id;
+    let ProductItems = JSON.parse(localStorage.getItem('Products')) || [];
+  
+    const productIndex = ProductItems.findIndex(item => item.id === productId);
+  
+    if (productIndex === -1) {
+      
+      ProductItems.push({ id: productId, quantity: 1 });
+    } else {
+      
+      ProductItems[productIndex].quantity += 1;
+    }
+  
+    localStorage.setItem('Products', JSON.stringify(ProductItems));
+    setProductItem(!ProductItem);
+  
+    toast.success('Product successfully added to cart', {
+      style: {
+        boxShadow: 'none',
+      },
+    });
+  };
+  const basketItem = basket.find((item) => item.id === product.id) || [];
+
+  const [productDetails, setProductDetails] = useState([]);
+  const [productsCount, setProductsCount] = useState(0);
+
+  const DeleteProduct = (productId) => {
+    const DeleteProducts = JSON.parse(localStorage.getItem('Products')) || [];
+    let updatedFavorites = [...DeleteProducts];
+    let shouldRemoveProduct = false;
+  
+    updatedFavorites = updatedFavorites.map(product => {
+      if (product.id === productId) {
+        product.quantity -= 1; 
+        if (product.quantity === 0) {
+          shouldRemoveProduct = true; 
+        }
+      }
+      return product;
+    });
+
+    if (shouldRemoveProduct) {
+      updatedFavorites = updatedFavorites.filter(product => product.id !== productId);
+    }
+  
+    localStorage.setItem('Products', JSON.stringify(updatedFavorites));
+    setProductDetails(updatedFavorites);
+  };
+  
+  
+  
   const addBasket = () => {
     const checkBasket = basket.find((item) => item.id === product.id);
     if (checkBasket) {
@@ -88,10 +147,12 @@ function Product({ product, total, money, basket, setBasket, value }) {
       ]);
     }
     setTimeout(() => {
+      console.log(basket)
       toast.success('The product has been successfully added to the cart', {
         style: {
           boxShadow: 'none',
         },
+        
       });
     }, 0);
   };
@@ -186,8 +247,7 @@ function Product({ product, total, money, basket, setBasket, value }) {
           </Typography>
           <Box display="flex" alignItems="center" marginTop="10px">
             <Button
-              disabled={!basketItem}
-              onClick={removeBasket}
+              onClick={() => DeleteProduct(product.id)}
               variant="outlined"
               sx={{ marginRight: "10px" }}
             >
@@ -196,7 +256,7 @@ function Product({ product, total, money, basket, setBasket, value }) {
             <Button
               variant="contained"
               disabled={total + product.price > money}
-              onClick={addBasket}
+              onClick={toggleProduct}
               sx={{ marginRight: "10px" }}
             >
               <İconSize><MdAddShoppingCart/></İconSize>

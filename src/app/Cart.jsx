@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import CartProductNotFound from '../components/CartProductNotFound';
+import { Link } from 'react-router-dom';
+import { BsCircleFill, BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
 import '../css/Cart.css'
 
 export default function Cart() {
@@ -11,6 +13,124 @@ export default function Cart() {
   //       }, 0)
   //   );
   // }, [basket]);
+
+
+  const [ProductCount, setProductCount] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
+  useEffect(() => {
+    const ProductCount = JSON.parse(localStorage.getItem('Products')) || [];
+    setProductCount(ProductCount.length);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+        const result = await response.json();
+        if (result && Array.isArray(result.products)) {
+          setProducts(result.products);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      const ProductIds = JSON.parse(localStorage.getItem('Products')) || [];
+      const productsDetails = [];
+    
+      for (const productInfo of ProductIds) {
+        const productId = productInfo.id; 
+        const productQuantity = productInfo.quantity; 
+        const product = products.find(product => product.id === productId);
+    
+        if (product) {
+          const productDetail = {
+            thumbnail: product.thumbnail,
+            price: product.price,
+            title: product.title,
+            description: product.description,
+            id: product.id,
+            quantity: productQuantity, 
+          };
+          productsDetails.push(productDetail);
+        }
+      }
+    
+      setProductDetails(productsDetails);
+    };
+
+    fetchProductDetails();
+  }, [products]);
+
+  const DeleteProduct = (productId) => {
+    const DeleteProducts = JSON.parse(localStorage.getItem('Products')) || [];
+    const updatedFavorites = DeleteProducts.filter((product) => product.id !== productId);
+    localStorage.setItem('Products', JSON.stringify(updatedFavorites));
+    setProductDetails(prevDetails => prevDetails.filter(product => product.id !== productId));
+    setProductCount(prevCount => prevCount - 1); 
+  };
+
+  const AddQuantity = (productId) => {
+    const productsInLocalStorage = JSON.parse(localStorage.getItem('Products')) || [];
+    const productIndex = productsInLocalStorage.findIndex(product => product.id === productId);
+    if (productIndex !== -1 && productsInLocalStorage[productIndex].quantity > 0) {
+      productsInLocalStorage[productIndex].quantity += 1;
+
+      localStorage.setItem('Products', JSON.stringify(productsInLocalStorage));
+      
+      const updatedProductDetails = productDetails.map(product => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            quantity: product.quantity + 1
+          };
+        }
+        return product;
+      });
+      
+      setProductDetails(updatedProductDetails);
+    }
+  };
+
+  const RemoveQuantity = (productId) => {
+    const productsInLocalStorage = JSON.parse(localStorage.getItem('Products')) || [];
+    const productIndex = productsInLocalStorage.findIndex(product => product.id === productId);
+    
+    if (productIndex !== -1 && productsInLocalStorage[productIndex].quantity > 0) {
+      productsInLocalStorage[productIndex].quantity -= 1;
+  
+      if (productsInLocalStorage[productIndex].quantity === 0) {
+        const updatedProductsInLocalStorage = productsInLocalStorage.filter(product => product.id !== productId);
+        localStorage.setItem('Products', JSON.stringify(updatedProductsInLocalStorage));
+        
+        const updatedProductDetails = productDetails.filter(product => product.id !== productId);
+        setProductDetails(updatedProductDetails);
+        setProductCount(prevCount => prevCount - 1); 
+      } else {
+        localStorage.setItem('Products', JSON.stringify(productsInLocalStorage));
+        
+        const updatedProductDetails = productDetails.map(product => {
+          if (product.id === productId) {
+            return {
+              ...product,
+              quantity: product.quantity - 1
+            };
+          }
+          return product;
+        });
+        setProductDetails(updatedProductDetails);
+      }
+    }
+  };
+  
+  
+  
   return (
     <>
 
@@ -23,39 +143,40 @@ export default function Cart() {
           <div className="col-md-8">
             <div className="product-details mr-2">
               <div className="d-flex flex-row align-items-center">
-                <i className="fa fa-long-arrow-left"></i>
-                <span className="ml-2">Continue Shopping</span>
+                <Link to="/" className='FavİconLinks'>
+                  <i className="fa fa-long-arrow-left"></i>
+                  <span className="ml-2">Continue Shopping</span>
+                </Link>
               </div>
               <hr />
-              <h6 className="mb-0">Shopping cart</h6>
+              <h6 className="mb-0">Shopping Favorites</h6>
               <div className="d-flex justify-content-between">
-                <span>You have 4 items in your cart</span>
-                <div className="d-flex flex-row align-items-center">
-                  <span className="text-black-50">Sort by:</span>
-                  <div className="price ml-2">
-                    <span className="mr-1">price</span>
-                    <i className="fa fa-angle-down"></i>
+                <span>You have {ProductCount} items in your Favorites</span>
+                {ProductCount === 0 && <CartProductNotFound />}
+              </div>
+
+              {productDetails.map((product, index) => (
+              <div key={index}>
+                <div className="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
+                  <div className="d-flex flex-row">
+                    <img className="rounded" src={product.thumbnail} width="40" alt={`${index}`} />
+                    <div className="ml-2">
+                      <span className="font-weight-bold d-block">{product.title}</span>
+                      <span className="spec">{product.description}</span>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row align-items-center">
+                    <span className="d-block ml-5 font-weight-bold">${product.price}</span>
+                    <span className="d-block ml-5 font-weight-bold" id= "AddQuantity-RemoveQuantity">
+                    <BsChevronCompactLeft onClick={() => RemoveQuantity(product.id)} id="Leftİcon"/>
+                    {product.quantity}
+                    <BsChevronCompactRight onClick={() => AddQuantity(product.id)} id="Rightİcon"/>
+                    </span>
+                    <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteProduct(product.id)}></i>
                   </div>
                 </div>
               </div>
-
-              {/* Repeat this block for each item in the cart */}
-              <div className="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                <div className="d-flex flex-row">
-                  <img className="rounded" src="https://i.imgur.com/QRwjbm5.jpg" width="40" alt="Product" />
-                  <div className="ml-2">
-                    <span className="font-weight-bold d-block">Iphone 11 pro</span>
-                    <span className="spec">256GB, Navy Blue</span>
-                  </div>
-                </div>
-                <div className="d-flex flex-row align-items-center">
-                  <span className="d-block">2</span>
-                  <span className="d-block ml-5 font-weight-bold">$900</span>
-                  <i className="fa fa-trash-o ml-3 text-black-50"></i>
-                </div>
-              </div>
-              {/* Repeat block end */}
-
+            ))}
             </div>
           </div>
           <div className="col-md-4">

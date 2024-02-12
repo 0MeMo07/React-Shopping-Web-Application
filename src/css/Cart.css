@@ -103,3 +103,16 @@
   .spec {
     font-size: 11px;
   }
+  #AddQuantity-RemoveQuantity{
+    margin-right: 20px;
+  }
+  #AddQuantity-RemoveQuantity:hover{
+    cursor: pointer;
+  }
+  #Leftİcon{
+    left: 0;
+  }
+  #Rightİcon{
+    right: 0;
+  }
+  
