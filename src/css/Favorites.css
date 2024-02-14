@@ -1,3 +1,23 @@
 #Trash:hover{
     cursor: pointer;
 }
+.items img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+@media (max-width: 850px) {
+
+    .items img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .spec {
+        display: none;
+    }
+}
+  

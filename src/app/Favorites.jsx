@@ -127,12 +127,12 @@ export default function Favorites({ product, total, money, basket, setBasket, va
             <div className="d-flex flex-row">
               <img className="rounded" src={product.thumbnail} width="40" alt={`${index}`} />
               <div className="ml-2">
-                <span className="font-weight-bold d-block">{product.title}</span>
+                <span className="font-weight-bold d-block" id="Title">{product.title}</span>
                 <span className="spec">{product.description}</span>
               </div>
             </div>
-            <div className="d-flex flex-row align-items-center">
-              <span className="d-block ml-5 font-weight-bold">${product.price}</span>
+            <div className="d-flex flex-row align-items-center" id="Price">
+              <span className="d-block ml-3 font-weight-bold">${product.price}</span>
               <Button className="d-block ml-3 font-weight-bold" onClick={() => toggleProduct(product.id)}><Link to="/cart" className='FavİconLinks'>Go To Cart </Link></Button>
               <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteFavorite(product.id)}></i>
             </div>
