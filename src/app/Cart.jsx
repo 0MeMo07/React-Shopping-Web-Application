@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import CartProductNotFound from '../components/CartProductNotFound';
 import { Link } from 'react-router-dom';
 import { BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
-import '../css/Cart.css'
+import classNames from 'classnames';
+import '../css/Cart.css';
 
 export default function Cart() {
   // const[total, SetTotal] = useState('')
@@ -30,6 +31,9 @@ export default function Cart() {
         const result = await response.json();
         if (result && Array.isArray(result.products)) {
           setProducts(result.products);
+        }
+        else{
+          console.log("Your Cart list is empty.")
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -135,7 +139,12 @@ export default function Cart() {
   });
 
 
-  
+  const cartClass = classNames(
+    {
+      "d-flex": ProductCount > 0,
+    },
+    "justify-content-between",
+  );
   
   return (
     <>
@@ -155,27 +164,27 @@ export default function Cart() {
                 </Link>
               </div>
               <hr />
-              <h6 className="mb-0">Shopping Favorites</h6>
-              <div className="d-flex justify-content-between">
-                <span>You have {ProductCount} items in your Favorites</span>
+              <h6 className="mb-0">Shopping Cart</h6>
+              <div className={cartClass}>
+                <span>You have {ProductCount} items in your Carts</span>
                 {ProductCount === 0 && <CartProductNotFound />}
               </div>
-
+              
               {productDetails.map((product, index) => (
-              <div key={index}>
+              <div key={index} className='Product'>
                 <div className="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
                   <div className="d-flex flex-row">
                     <img className="rounded" src={product.thumbnail} width="40" alt={`${index}`} />
                     <div className="ml-2">
-                      <span className="font-weight-bold d-block">{product.title}</span>
+                      <span className="Title font-weight-bold d-block">{product.title}</span>
                       <span className="spec">{product.description}</span>
                     </div>
                   </div>
-                  <div className="d-flex flex-row align-items-center">
-                    <span className="d-block ml-5 font-weight-bold">${product.price * product.quantity}</span>
-                    <span className="d-block ml-5 font-weight-bold" id= "AddQuantity-RemoveQuantity">
+                  <div className="quantity-controller d-flex flex-row align-items-center">
+                    <span className="price d-block ml-3 font-weight-bold">${product.price * product.quantity}</span>
+                    <span className="d-block ml-3 font-weight-bold" id="AddQuantity-RemoveQuantity">
                     <BsChevronCompactLeft onClick={() => RemoveQuantity(product.id)} id="Leftİcon"/>
-                    {product.quantity}
+                    <span className="quantity-value">{product.quantity}</span>
                     <BsChevronCompactRight onClick={() => AddQuantity(product.id)} id="Rightİcon"/>
                     </span>
                     <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteProduct(product.id)}></i>
@@ -192,12 +201,10 @@ export default function Cart() {
                 <img className="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30" alt="Card Type" />
               </div>
 
-              {/* Repeat this block for each card type */}
               <label className="radio">
                 <input type="radio" name="card" value="payment" checked />
                 <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" /></span>
               </label>
-              {/* Repeat block end */}
 
               <div>
                 <label className="credit-card-label">Name on card</label>

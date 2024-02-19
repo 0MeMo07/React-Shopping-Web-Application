@@ -27,3 +27,41 @@
     color: #666;
     margin-bottom: 10px;
 }
+
+
+@media (max-width: 767px) {
+    .cart-not-found-container {
+        text-align: center;
+        position: relative;
+        top: 55%;
+        left: 35%;
+        transform: translate(-35%, 25%);
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+    }
+    
+    .cart-empty-image {
+        width: 100px; 
+        height: auto; 
+        margin-bottom: 20px;
+    }
+    
+    .cart-not-found-container h2 {
+        font-size: 24px;
+        color: #333;
+    }
+    
+    .cart-not-found-container p {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .payment-info{
+        margin-top: 120px !important;
+    }
+}
