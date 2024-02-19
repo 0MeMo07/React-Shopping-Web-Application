@@ -14,18 +14,22 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoMdHome } from "react-icons/io";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider} from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Styled from 'styled-components';
 import { IoIosHeart} from "react-icons/io";
 import FavoritesCount from '../hooks/FavoritesCount'
-import { BiCategory } from "react-icons/bi";
 import '../css/Routes.css'
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    primary: {
+      main: 'rgba(0, 0, 0, 0.8)', 
+    },
+    secondary: {
+      main: 'rgba(237, 242, 255, 0.8)',
+    },
   },
 });
 const BoxSide = Styled.div`
@@ -35,6 +39,8 @@ const BoxSide = Styled.div`
   top:0;
   right:0;
   left:0;
+ 
+  backdrop-filter: blur(4px);
 `;
 
 
@@ -84,93 +90,9 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const [FilteranchorEl, setFilteranchorEl] = React.useState(null);
-  const [filterMoreAnchorEl, setFilterMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const isFilterMenuOpen = Boolean(mobileMoreAnchorEl);
-  //filter menu 
-  const handleFilterMenuOpen = (event) => {
-    setFilteranchorEl(event.currentTarget); 
-  };
-
-  const handleFilterMenuClose = () => {
-    setFilterMoreAnchorEl(null);
-  };
-
-  const handleFilterClose = () => {
-    setFilteranchorEl(null);
-    handleFilterMenuClose();
-  };
-
-  const handleFilterOnClickMenuOpen = (event) => {
-    setFilterMoreAnchorEl(event.currentTarget);
-  };
-
-  const FilterRenderMenu = (
-    <Menu>
-      <MenuItem onClick={handleFilterMenuClose}></MenuItem>
-      <MenuItem onClick={handleFilterClose}></MenuItem>
-    </Menu>
-  );
-
-
-  const FilterId = 'primary-search-account-menu-fliter';
-  const FilterMenu = (
-    <Menu
-      FilteranchorEl={filterMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={FilterId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isFilterMenuOpen}
-      onClose={handleFilterMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="white">
-          <Badge color="error">
-            <BiCategory/>
-          </Badge>
-        </IconButton>
-        <p>Category</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={favoritesCount} color="error">
-            <IoIosHeart />
-          </Badge>
-        </IconButton>
-        <Link to="/Favorites" className='İconLinks'>Favorites</Link>
-      </MenuItem>
-      <MenuItem onClick={handleFilterMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <FaShoppingCart />
-        </IconButton>
-        <Link to="/cart" className="İconLinks">Cart</Link>
-      </MenuItem>
-    </Menu>
-  );
-
-
-  //Mobil Menu
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -198,8 +120,6 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
       <MenuItem onClick={handleMenuClose}></MenuItem>
     </Menu>
   );
-
-  
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -252,12 +172,10 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
       </MenuItem>
     </Menu>
   );
-
-
- 
   return (
     
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme} >
+    
       <BoxSide>
       <Box sx={{ flexGrow: 1 }} id="menu">
         <AppBar position="static">
@@ -299,12 +217,11 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             <Box sx={{ flexGrow: 1 }} />
             
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" aria-controls={FilterId} aria-haspopup="true" onClick={handleFilterOnClickMenuOpen}>
-              <Badge color="error">
-                <FaFilter />
-              </Badge>
-            
-            </IconButton>
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                <Badge color="error">
+                  <FaFilter />
+                </Badge>
+              </IconButton>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
@@ -345,10 +262,9 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
-        {FilterRenderMenu}
-        {FilterMenu}
       </Box>
       </BoxSide>
+
     </ThemeProvider>
 
   );

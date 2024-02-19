@@ -3,6 +3,7 @@ import Header from '../components/Search';
 import Product from '../components/Product';
 import Basket from '../components/Basket';
 import '../css/Home.css'
+import Loginİmage from '../components/Loginİmage'
 import Slider from '../components/Slider';
 
 export default function Home() {
@@ -66,8 +67,8 @@ export default function Home() {
                 <Basket resetBasket={resetBasket} total={total} products={filteredProducts} basket={basket} />
             )}
             
-           <Slider slides={products.thumbnail} />
-
+           {/* <Slider slides={products.thumbnail} /> */}
+           <Loginİmage/>
             <div className="categories-container">
                 {categories.map(category => (
                     <div key={category} className="category-container">
