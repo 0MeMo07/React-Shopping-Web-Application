@@ -153,7 +153,7 @@ label.radio input:checked + span {
   #Trash {
     margin-top: auto;
     margin-bottom: 0px;
-    position: fixed;
-    right: 43px;
+    position: relative;
+    right: 30px;
   }
 }
