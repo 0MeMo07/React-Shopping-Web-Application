@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/React-Market-Application/static/css/main.93157443.css",
-    "main.js": "/React-Market-Application/static/js/main.71c3b596.js",
-    "static/js/787.c2e87f03.chunk.js": "/React-Market-Application/static/js/787.c2e87f03.chunk.js",
-    "static/media/BrokenHeart.png": "/React-Market-Application/static/media/BrokenHeart.6e5912f8161c412cf253.png",
-    "static/media/CartEmpty.png": "/React-Market-Application/static/media/CartEmpty.2e8a8f91900b3eeca331.png",
-    "index.html": "/React-Market-Application/index.html",
-    "main.93157443.css.map": "/React-Market-Application/static/css/main.93157443.css.map",
-    "main.71c3b596.js.map": "/React-Market-Application/static/js/main.71c3b596.js.map",
-    "787.c2e87f03.chunk.js.map": "/React-Market-Application/static/js/787.c2e87f03.chunk.js.map"
+    "main.css": "/React-Shopping-Web-Application/static/css/main.93157443.css",
+    "main.js": "/React-Shopping-Web-Application/static/js/main.732e82d9.js",
+    "static/js/787.c2e87f03.chunk.js": "/React-Shopping-Web-Application/static/js/787.c2e87f03.chunk.js",
+    "static/media/BrokenHeart.png": "/React-Shopping-Web-Application/static/media/BrokenHeart.6e5912f8161c412cf253.png",
+    "static/media/CartEmpty.png": "/React-Shopping-Web-Application/static/media/CartEmpty.2e8a8f91900b3eeca331.png",
+    "index.html": "/React-Shopping-Web-Application/index.html",
+    "main.93157443.css.map": "/React-Shopping-Web-Application/static/css/main.93157443.css.map",
+    "main.732e82d9.js.map": "/React-Shopping-Web-Application/static/js/main.732e82d9.js.map",
+    "787.c2e87f03.chunk.js.map": "/React-Shopping-Web-Application/static/js/787.c2e87f03.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.93157443.css",
-    "static/js/main.71c3b596.js"
+    "static/js/main.732e82d9.js"
   ]
 }
