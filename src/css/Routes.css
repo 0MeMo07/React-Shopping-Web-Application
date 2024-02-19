@@ -2,9 +2,12 @@
     text-decoration: none;
     color: white;
 }
-
-.FavİconLinks{
+.MobilMenuİconLinks{
     text-decoration: none;
+    color: black;
+}
+.FavİconLinks{
+    text-decoration: nnoe;
 }
 
 .FavİconLinks:hover{

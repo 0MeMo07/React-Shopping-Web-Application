@@ -144,7 +144,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             <FaFilter />
           </Badge>
         </IconButton>
-        <p>Filter</p>
+        <p className="MobilMenuİconLinks">Filter</p>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -156,7 +156,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             <IoIosHeart />
           </Badge>
         </IconButton>
-        <Link to="/Favorites" className='İconLinks'>Favorites</Link>
+        <Link to="/Favorites" className='MobilMenuİconLinks'>Favorites</Link>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -168,7 +168,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
         >
           <FaShoppingCart />
         </IconButton>
-        <Link to="/cart" className="İconLinks">Cart</Link>
+        <Link to="/cart" className="MobilMenuİconLinks">Cart</Link>
       </MenuItem>
     </Menu>
   );
