@@ -7,7 +7,7 @@ import Loginİmage from '../components/Loginİmage'
 import Slider from '../components/Slider';
 
 export default function Home() {
-    const [money] = useState(1000);
+    const [money] = useState(100000);
     const [basket, setBasket] = useState([]);
     const [total, setTotal] = useState(0);
     const [products, setProducts] = useState([]);

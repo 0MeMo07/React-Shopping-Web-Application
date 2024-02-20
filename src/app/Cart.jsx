@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import CartProductNotFound from '../components/CartProductNotFound';
 import { Link } from 'react-router-dom';
 import { BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 import classNames from 'classnames';
 import '../css/Cart.css';
-
+import '../css/newCart.css'
 export default function Cart() {
   // const[total, SetTotal] = useState('')
   // useEffect(() => {
@@ -58,6 +59,7 @@ export default function Cart() {
             thumbnail: product.thumbnail,
             price: product.price,
             title: product.title,
+            catogory: product.catogory,
             description: product.description,
             id: product.id,
             quantity: productQuantity, 
@@ -149,97 +151,56 @@ export default function Cart() {
   return (
     <>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-      <div className="container mt-5 p-3 rounded cart">
-        <div className="row no-gutters">
-          <div className="col-md-8">
-            <div className="product-details mr-2">
-              <div className="d-flex flex-row align-items-center">
-                <Link to="/" className='FavİconLinks'>
-                  <i className="fa fa-long-arrow-left"></i>
-                  <span className="ml-2">Continue Shopping</span>
-                </Link>
-              </div>
-              <hr />
-              <h6 className="mb-0">Shopping Cart</h6>
-              <div className={cartClass}>
-                <span>You have {ProductCount} items in your Carts</span>
+      <div className="card">
+        <div className="row">
+          <div className="col-md-8 cart">
+            <div className="title">
+              <div className="row">
+                <div className="col"><h4><b>Shopping Cart</b></h4></div>
+                <div className="col align-self-center text-right text-muted">{ProductCount} items</div>
                 {ProductCount === 0 && <CartProductNotFound />}
               </div>
-              
-              {productDetails.map((product, index) => (
-              <div key={index} className='Product'>
-                <div className="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                  <div className="d-flex flex-row">
-                    <img className="rounded" src={product.thumbnail} width="40" alt={`${index}`} />
-                    <div className="ml-2">
-                      <span className="Title font-weight-bold d-block">{product.title}</span>
-                      <span className="spec">{product.description}</span>
-                    </div>
-                  </div>
-                  <div className="quantity-controller d-flex flex-row align-items-center">
-                    <span className="price d-block ml-3 font-weight-bold">${product.price * product.quantity}</span>
-                    <span className="d-block ml-3 font-weight-bold" id="AddQuantity-RemoveQuantity">
-                    <BsChevronCompactLeft onClick={() => RemoveQuantity(product.id)} id="Leftİcon"/>
-                    <span className="quantity-value">{product.quantity}</span>
-                    <BsChevronCompactRight onClick={() => AddQuantity(product.id)} id="Rightİcon"/>
-                    </span>
-                    <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteProduct(product.id)}></i>
-                  </div>
+            </div>    
+            {productDetails.map((product, index) => (
+            <div className="row border-top border-bottom">
+              <div className="row main align-items-center">
+                <div className="col-2"><img className="img-fluid" src={product.thumbnail} alt={`${index}`}/></div>
+                <div className="col">
+                  <div className="row text-muted">{product.catogory}</div>
+                  <div className="row">{product.title}</div>
                 </div>
+                <div className="col">
+                  <a href="#" onClick={() => RemoveQuantity(product.id)}>-</a><a className="border">{product.quantity}</a><a href="#" onClick={() => AddQuantity(product.id)}>+</a>
+                </div>
+                <div className="col">${product.price * product.quantity} <span className="close" onClick={() => DeleteProduct(product.id)}>&#10005;</span></div>
               </div>
+            </div>
             ))}
-            </div>
+            <div className="back-to-shop"><Link to="/"><FaLongArrowAltLeft/></Link><span className="text-muted">Back to shop</span></div>
           </div>
-          <div className="col-md-4">
-            <div className="payment-info">
-              <div className="d-flex justify-content-between align-items-center">
-                <span>Card details</span>
-                <img className="rounded" src="https://i.imgur.com/WU501C8.jpg" width="30" alt="Card Type" />
-              </div>
-
-              <label className="radio">
-                <input type="radio" name="card" value="payment" checked />
-                <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" alt="Mastercard" /></span>
-              </label>
-
-              <div>
-                <label className="credit-card-label">Name on card</label>
-                <input type="text" className="form-control credit-inputs" placeholder="Name" />
-              </div>
-              <div>
-                <label className="credit-card-label">Card number</label>
-                <input type="text" className="form-control credit-inputs" placeholder="0000 0000 0000 0000" />
-              </div>
-              <div className="row">
-                <div className="col-md-6">
-                  <label className="credit-card-label">Date</label>
-                  <input type="text" className="form-control credit-inputs" placeholder="12/24" />
-                </div>
-                <div className="col-md-6">
-                  <label className="credit-card-label">CVV</label>
-                  <input type="text" className="form-control credit-inputs" placeholder="342" />
-                </div>
-              </div>
-              <div>
-              <hr className="line" />
-              <div className="d-flex justify-content-between information">
-                <span>Subtotal</span>
-                <span>{totalPrice }</span>
-              </div>
-              <div className="d-flex justify-content-between information">
-                <span>Total (Incl. taxes)</span>
-                <span>{totalPrice}</span>
-              </div>
-              <button className="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
-                <span>{totalPrice}</span>
-                <span>Checkout <i className="fa fa-long-arrow-right ml-1"></i></span>
-              </button>
+          <div className="col-md-4 summary">
+            <div><h5><b>Summary</b></h5></div>
+            <hr />
+            <div className="row">
+              <div className="col" style={{ paddingLeft: 13 }}>{ProductCount} product Amount:</div>
+              <div className="col text-right">$ {totalPrice}</div>
             </div>
+         
+            <form>
+              <p>SHIPPING</p>
+              <select><option className="text-muted">Standard-Delivery- $5.00</option></select>
+              <p>GIVE CODE</p>
+              <input id="code" placeholder="Enter your code" />
+            </form>
+            <div className="row" style={{ borderTop: "1px solid rgba(0,0,0,.1)", padding: "2vh 0" }}>
+              <div className="col">TOTAL PRICE</div>
+              <div className="col text-right">$ {totalPrice}</div>
             </div>
+            <button className="btn">CHECKOUT</button>
           </div>
         </div>
       </div>

@@ -3,11 +3,24 @@ import styled from 'styled-components';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider} from '@mui/material/styles';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
 import toast, { Toaster } from 'react-hot-toast';
 import { IoIosHeart, IoMdHeartEmpty } from "react-icons/io";
 
+
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: 'rgba(0, 0, 0, 0.8)', 
+      
+    },
+    secondary: {
+      main: 'rgba(237, 242, 255, 0.8)',
+    },
+  },
+});
 
 const BoxSide = styled.div`
   float: left;
@@ -125,37 +138,14 @@ function Product({ product, total, money, basket, setBasket, value }) {
   
     localStorage.setItem('Products', JSON.stringify(updatedFavorites));
     setProductDetails(updatedFavorites);
+
+    toast.error('The product has been successfully removed from your cart', {
+      style: {
+        boxShadow: 'none',
+      },
+    });
   };
   
-  
-  
-  const addBasket = () => {
-    const checkBasket = basket.find((item) => item.id === product.id);
-    if (checkBasket) {
-      checkBasket.amount += 1;
-      setBasket([
-        ...basket.filter((item) => item.id !== product.id),
-        checkBasket,
-      ]);
-    } else {
-      setBasket([
-        ...basket,
-        {
-          id: product.id,
-          amount: 1,
-        },
-      ]);
-    }
-    setTimeout(() => {
-      console.log(basket)
-      toast.success('The product has been successfully added to the cart', {
-        style: {
-          boxShadow: 'none',
-        },
-        
-      });
-    }, 0);
-  };
 
   const [isFavorite, setIsFavorite] = useState(checkIfFavorite(product.id));
 
@@ -193,24 +183,11 @@ function Product({ product, total, money, basket, setBasket, value }) {
     setIsFavorite(!isFavorite);
   };
 
-  
-  const removeBasket = () => {
-    const currentBasket = basket.find((item) => item.id === product.id);
-    const basketWithoutCurrent = basket.filter(
-      (item) => item.id !== product.id
-    );
 
-    currentBasket.amount -= 1;
-    if (currentBasket.amount === 0) {
-      setBasket([...basketWithoutCurrent]);
-    } else {
-      setBasket([...basketWithoutCurrent, currentBasket]);
-    }
-  };
 
   return (
     <>
-
+     <ThemeProvider theme={darkTheme} >
      <BoxSide>
         <Toaster />
         <Box
@@ -264,6 +241,9 @@ function Product({ product, total, money, basket, setBasket, value }) {
           </Box>
         </Box>
       </BoxSide>
+      </ThemeProvider>
+
+      
     </>
   );
 };
