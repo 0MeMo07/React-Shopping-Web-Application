@@ -125,12 +125,13 @@
   .btn:hover{
     color: white;
   }
-  a{
-    color: black; 
-  }
-  a:hover{
-    color: black;
+  .cartLinks{
     text-decoration: none;
+    color: black;
+  }
+  .cartLinks:hover{
+    text-decoration: none;
+    color: black;
   }
   #code{
     background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");

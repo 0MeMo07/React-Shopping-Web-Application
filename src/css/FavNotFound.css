@@ -1,7 +1,7 @@
 .not-found-container {
     text-align: center;
     position: fixed;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -11,6 +11,20 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 767px) {
+    .not-found-container {
+        text-align: center;
+        position: fixed;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+}
 .empty-image {
     width: 100px; 
     height: auto; 

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FavNotFound from '../components/FavNotFound';
 import { FaRegTrashCan } from "react-icons/fa6";
+import Header from '../components/Search'
 import Button from "@mui/material/Button";
-import '../css/FavoritesD.css'
+import { IoIosHeart, IoMdHeartEmpty } from "react-icons/io";
+import '../css/Favorites.css'
 
 export default function Favorites({ product, total, money, basket, setBasket, value }) {
   const [favoritesCount, setFavoritesCount] = useState(0);
@@ -81,29 +83,27 @@ export default function Favorites({ product, total, money, basket, setBasket, va
     }
   
     localStorage.setItem('Products', JSON.stringify(ProductItems));
-    setProductItem(!ProductItem);
+    setProductItem(!ProductItem)
   
-  };
+  }
+
   return (
     <>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    
-      <h6 className="mb-0">Shopping Favorites</h6>
-      <div className="d-flex justify-content-between">
+      <Header/>
+      <div className="FavTitle">
+      <h6 className="mb-0">Shopping Favorites <IoIosHeart className='FavHeart'/></h6>
+      <div className="FavİtemCount">
         <span>You have {favoritesCount} items in your Favorites</span>
         {favoritesCount === 0 && <FavNotFound />}
       </div>
+      </div>
       {productDetails.map((product, index) => (
-      <div className="container page-wrapper" key={index}>
+      <div className="FavoritesContainer page-wrapper" key={index}>
         <div className="page-inner">
           <div className="row">
             <div className="el-wrapper">
               <div className="box-up">
-              <i className="fa fa-trash-o ml-3 text-black-50" id="Trash" onClick={() => DeleteFavorite(product.id)}></i>
-                <img className="img" src={product.thumbnail} alt="" />
+                <img className="img" id="Favİtemİmage" src={product.thumbnail} alt="" />
                 <div className="img-info">
                   <div className="info-inner">
                     <span className="p-name">{product.title}</span>
@@ -117,12 +117,15 @@ export default function Favorites({ product, total, money, basket, setBasket, va
                 <div className="h-bg">
                   <div className="h-bg-inner"></div>
                 </div>
-                <a className="cart" href="#" onClick={() => toggleProduct(product.id)}>
+                <Link className="cart" onClick={() => toggleProduct(product.id)}>
                   <span className="price">${product.price}</span>
                   <span className="add-to-cart">
-                    <span className="txt" ><Link to="/cart" className='FavİconLinks'>Go To Cart </Link></span>
+                    <span className="txt" >
+                      <Link to="/cart" className='GoToCartLink'>Go To Cart </Link>
+                      <FaRegTrashCan id="FTrash" onClick={() => DeleteFavorite(product.id)}></FaRegTrashCan>
+                    </span>
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

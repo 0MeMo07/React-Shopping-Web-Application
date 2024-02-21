@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BsChevronCompactRight,  BsChevronCompactLeft } from "react-icons/bs";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import classNames from 'classnames';
+import Header from '../components/Search'
 import '../css/Cart.css';
 import '../css/newCart.css'
 export default function Cart() {
@@ -150,7 +151,6 @@ export default function Cart() {
   
   return (
     <>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
@@ -174,7 +174,7 @@ export default function Cart() {
                   <div className="row">{product.title}</div>
                 </div>
                 <div className="col">
-                  <a href="#" onClick={() => RemoveQuantity(product.id)}>-</a><a className="border">{product.quantity}</a><a href="#" onClick={() => AddQuantity(product.id)}>+</a>
+                  <Link className='cartLinks' onClick={() => RemoveQuantity(product.id)}>-</Link><Link className="border" id='cartLinks'>{product.quantity}</Link><Link className='cartLinks' onClick={() => AddQuantity(product.id)}>+</Link>
                 </div>
                 <div className="col">${product.price * product.quantity} <span className="close" onClick={() => DeleteProduct(product.id)}>&#10005;</span></div>
               </div>

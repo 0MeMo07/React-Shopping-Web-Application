@@ -153,7 +153,7 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
           color="inherit"
         >
           <Badge badgeContent={favoritesCount} color="error">
-            <IoIosHeart />
+            <IoIosHeart  className="IoHeart"/>
           </Badge>
         </IconButton>
         <Link to="/Favorites" className='MobilMenuİconLinks'>Favorites</Link>
@@ -208,8 +208,12 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
                 inputProps={{ 'aria-label': 'search' }}
                 value={value}
                 onChange={(e) => {
-                  setValue(e.target.value);
-                  onSearch(e.target.value);
+                  try {
+                    setValue(e.target.value);
+                    onSearch(e.target.value);
+                  } catch (error) {
+                    console.error("Error:", error);
+                  }
                 }}
               />
             </Search>
