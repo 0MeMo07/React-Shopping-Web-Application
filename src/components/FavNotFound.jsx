@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/FavNotFound.css'; 
-import emptyImage from '../assets/BrokenHeart.png';
+import emptyImage from '../assets/FavBrokenHeart.png';
 function FavNotFound() {
     return (
         <div className="not-found-container">

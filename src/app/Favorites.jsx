@@ -131,7 +131,7 @@ export default function Favorites({ product, total, money, basket, setBasket, va
           </div>
         </div>
       </div>
-    ))};
+    ))}
     </>
   );
 }
