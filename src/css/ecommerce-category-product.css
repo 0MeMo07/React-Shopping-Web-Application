@@ -276,14 +276,9 @@ body {
   white-space: nowrap;
 }
   
-.FavoritesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  flex-direction: row; 
-  float: left;
-  padding: 25px;
-}
+.ProductContainer {
+    margin-left: 10px;
+} 
 
 a{
   color: #fff;
@@ -293,10 +288,6 @@ a{
   border-radius: 10px;
 }
 
-.mbbb-0{
-  padding-top: 60px;
-  font-size: 30px;
-}
 
 
 .GoToCartLink{
@@ -313,48 +304,16 @@ a{
   cursor: pointer;
 }
 
-.FavTitle {
-	font-family: "Cairo";
-	text-align: center;
-	color: #FFF;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	letter-spacing: 1px;
-	line-height:2
-}
 
-.mbbb-0{
-	background-image: url(https://i.pinimg.com/originals/95/86/84/9586846990183c06e768204cd0593eee.gif);
-	background-size: cover;
-	color: transparent;
-	-moz-background-clip: text;
-	-webkit-background-clip: text;
-	text-transform: uppercase;
-	margin: 10px 0;
-}
-
-.FavİtemCount{
-  color:#252525;
-  text-align: center;
-  /* margin-right: 50px; */
-  margin-right: 50px;
-}
 
 @media (max-width: 767px) {
   #FTrash{
     padding-left: 50px;
   }
 
-  .FavoritesContainer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row; 
-    float: left;
-    align-items: center;
-    justify-content: center;
-  }
+  /* .ProductContainer {
+    padding: 25px;
+  } */
 
   
 }

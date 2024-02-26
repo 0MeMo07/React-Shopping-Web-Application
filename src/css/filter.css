@@ -1,0 +1,92 @@
+.MainContainer{
+    margin-top: 75px;
+    display: block !important;
+}
+.FilterBar{
+    background-color: #f2f2f281;
+    position: fixed !important;
+}
+.Product-Container-Catogory{
+    width: auto;
+    border-radius: 10px;  
+    /* position: fixed; */
+    margin-left: 350px; 
+}
+.categories{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.price{
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.priceText{
+    color: rgba(0, 0, 0, 0.6);
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    padding: 10px;
+}
+
+.CategoriesText{
+    color: rgba(0, 0, 0, 0.6);
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    padding: 10px;
+}
+
+.line{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+
+.Filter-product-container{
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 10px; 
+    overflow-x: auto; 
+}
+
+.filter-category-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: auto;
+    width: 98%;
+    flex: 0 0 auto; 
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+.Filter-category-title{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-family: system-ui;
+}
+
+
+@media (max-width: 770px) {
+
+    .Product-Container-Catogory {
+        width: auto;
+        border-radius: 10px;
+        /* position: fixed; */
+        margin-left: 0px;
+        margin-top: 50px;
+    }
+    .FilterBar {
+        background-color: #f2f2f281;
+        position: relative !important;
+    }
+
+    .categories{
+        width: 100% !important;
+    }
+    .price{
+        width: 100% !important;
+    }
+    
+}

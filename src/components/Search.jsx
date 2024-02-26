@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { FaFilter } from "react-icons/fa";
+import { BiCategory } from "react-icons/bi";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
@@ -141,7 +141,9 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge color="error">
-            <FaFilter />
+          <Link to="/categories" className='İconLinks'>
+              <BiCategory className='İconLinks'/>
+          </Link>
           </Badge>
         </IconButton>
         <p className="MobilMenuİconLinks">Filter</p>
@@ -223,7 +225,9 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge color="error">
-                  <FaFilter />
+                <Link to="/categories" className='İconLinks'>
+                  <BiCategory />
+                </Link>
                 </Badge>
               </IconButton>
               <IconButton

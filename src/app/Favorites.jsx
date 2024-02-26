@@ -91,7 +91,7 @@ export default function Favorites({ product, total, money, basket, setBasket, va
     <>
       <Header/>
       <div className="FavTitle">
-      <h6 className="mb-0">Shopping Favorites <IoIosHeart className='FavHeart'/></h6>
+      <h6 className="mbbb-0">Shopping Favorites <IoIosHeart className='FavHeart'/></h6>
       <div className="FavİtemCount">
         <span>You have {favoritesCount} items in your Favorites</span>
         {favoritesCount === 0 && <FavNotFound />}
