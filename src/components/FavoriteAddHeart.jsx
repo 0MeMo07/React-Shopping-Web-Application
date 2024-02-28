@@ -14,6 +14,16 @@ const IconButton = styled(Button)`
     padding-left: 100px;
   }
 
+  @media (max-width: 767px) {
+    && {
+    padding: 0; 
+    min-width: unset; 
+    width: auto; 
+    left: 0;
+    margin-top: auto;
+    padding-left: 65px;
+  }
+  }
   
 `;
 
