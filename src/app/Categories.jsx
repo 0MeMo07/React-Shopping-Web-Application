@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FavNotFound from '../components/FavNotFound';
 import Header from '../components/Search'
+import Button from "@mui/material/Button";
 import { IoIosHeart, IoMdHeartEmpty } from "react-icons/io";
 import "../css/ecommerce-category-product.css";
 import '../css/filter.css'
@@ -14,7 +15,28 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField'
+import toast, { Toaster } from 'react-hot-toast';
+import styled from 'styled-components'
+import FavoriteHeart from '../components/FavoriteAddHeart'
 
+
+const IconButton = styled(Button)`
+  && {
+    padding: 0; 
+    min-width: unset; 
+    width: auto; 
+    left: 0;
+  }
+`;
+
+const HeartIconEmpty = styled(IoMdHeartEmpty)`
+  font-size: 24px;
+`;
+
+const HeartIcon = styled(IoIosHeart)`
+  font-size: 24px;
+  color:red;
+`;
 
 function Filter() {
   const [favoritesCount, setFavoritesCount] = useState(0);
@@ -97,6 +119,12 @@ function Filter() {
   
     localStorage.setItem('Products', JSON.stringify(ProductItems));
     setProductItem(!ProductItem)
+
+    toast.success('Product successfully added to cart', {
+      style: {
+        boxShadow: 'none',
+      },
+    });
   
   }
   useEffect(() => {
@@ -136,9 +164,48 @@ const handleSearch = (searchValue) => {
   const uniqueCategories = Array.from(new Set(filtered.map(product => product.category)));
   setCategories(uniqueCategories);
 };
+const handleChange = (event) => {
+  const selectedCategory = event.target.value;
+  let filteredProducts = [];
+  if (selectedCategory === "All") {
+    filteredProducts = products;
+  } else {
+    filteredProducts = products.filter(product => product.category === selectedCategory);
+  }
+  setFilteredProducts(filteredProducts);
+
+  const uniqueCategories = Array.from(new Set(filteredProducts.map(product => product.category)));
+  setCategories(uniqueCategories);
+};
+
+
+
+const [minPrice, setMinPrice] = useState('');
+const [maxPrice, setMaxPrice] = useState('');
+
+const handlePriceFilter = () => {
+  const minPriceValue = parseFloat(minPrice);
+  const maxPriceValue = parseFloat(maxPrice);
+
+  if (isNaN(minPriceValue) || isNaN(maxPriceValue)) {
+    toast.error('Please enter valid numeric values for both minimum and maximum prices', {
+      style: {
+        boxShadow: 'none',
+      },
+    });
+    return;
+  }
+
+  const filteredByPrice = products.filter(product => {
+    return product.price >= minPrice && product.price <= maxPrice;
+  });
+
+  setFilteredProducts(filteredByPrice);
+};
 
   return (
     <>
+    <Toaster/>
     <Header onSearch={handleSearch}/>
     <div className='MainContainer' style={{ display: 'flex' }}>
     <FormControl className="FilterBar">
@@ -149,27 +216,42 @@ const handleSearch = (searchValue) => {
            className="categories"
            defaultValue="All"
            name="radio-buttons-group"
+           onChange={handleChange}
          >
            <FormLabel id="demo-radio-buttons-group-label" className='CategoriesText'>Categories</FormLabel>
            {/* <Typography className="line">---------------------------------------------------</Typography> */}
            <FormControlLabel value="All" control={<Radio />} label="All" />
-           <FormControlLabel value="Smart Phones" control={<Radio />} label="Smart Phones" />
-           <FormControlLabel value="Laptops" control={<Radio />} label="Laptops" />
-           <FormControlLabel value="Fragrances" control={<Radio />} label="fragrances" />
-           <FormControlLabel value="Skincare" control={<Radio />} label="skincare" />
-           <FormControlLabel value="Groceries" control={<Radio />} label="groceries" />
-           <FormControlLabel value="Home Decoration" control={<Radio />} label="home decoration" />
+           <FormControlLabel value="smartphones" control={<Radio />} label="Smart Phones" />
+           <FormControlLabel value="laptops" control={<Radio />} label="Laptops" />
+           <FormControlLabel value="fragrances" control={<Radio />} label="fragrances" />
+           <FormControlLabel value="skincare" control={<Radio />} label="skincare" />
+           <FormControlLabel value="groceries" control={<Radio />} label="groceries" />
+           <FormControlLabel value="home-decoration" control={<Radio />} label="home decoration" />
          </RadioGroup>
 
          
-         <Box sx={{ width: 300 }} className="price">
-           <Typography className='priceText' size="medium">Price</Typography>
-           {/* <Typography className="line">---------------------------------------------------</Typography> */}
-           <div style={{ display: 'flex', gap: '8px' }}>
-             <TextField className="MinPrice" label="MinPrice" variant="standard" size="small"/>
-             <TextField className="MaxPrice" label="MaxPrice" variant="standard" size="small"/>
-           </div>
-         </Box>
+         <Box sx={{ width: 300 }} className="Filterprice">
+            <Typography className='priceText'>Price</Typography>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <TextField
+                  className="MinPrice"
+                  label="Min Price"
+                  variant="standard"
+                  size="small"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                />
+                <TextField
+                  className="MaxPrice"
+                  label="Max Price"
+                  variant="standard"
+                  size="small"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                />
+            </div>
+            <Button variant="contained" onClick={handlePriceFilter} className='Price-Filter-Button'>Filter</Button>
+          </Box>
      </FormControl>
     <div className='Product-Container-Catogory'>
 
@@ -200,12 +282,13 @@ const handleSearch = (searchValue) => {
                       <div className="h-bg">
                         <div className="h-bg-inner"></div>
                       </div>
-                      <Link className="cart" onClick={() => toggleProduct(product.id)}>
+                      <Link className="cart">
                         <span className="price">${product.price}</span>
                         <span className="add-to-cart">
                           <span className="txt" >
-                            <Link to="/cart" className='GoToCartLink'>Go To Cart </Link>
-                            <IoMdHeartEmpty id="FTrash" ></IoMdHeartEmpty>
+                            <Link className='GoToCartLink' onClick={() => toggleProduct(product.id)}>Add Cart</Link>
+                  
+                            <FavoriteHeart productId={product.id}  id="PFTrash"/>
                           </span>
                         </span>
                       </Link>

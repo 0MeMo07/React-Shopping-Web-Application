@@ -259,7 +259,7 @@ body {
   transition-delay: 100ms;
   display: block;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 125%;
   -webkit-transform: translate(-25%, -50%);
   -ms-transform: translate(-25%, -50%);
@@ -294,9 +294,9 @@ a{
   text-decoration: none;
 }
 
-#FTrash{
+#PFTrash{
   margin-top: auto;
-  margin-bottom: 0px;
+  margin-bottom: -7px;
   padding-left: 100px;
 }
 

@@ -141,8 +141,8 @@ export default function PrimarySearchAppBar({ product, total, money, basket, set
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge color="error">
-          <Link to="/categories" className='İconLinks'>
-              <BiCategory className='İconLinks'/>
+          <Link to="/categories" className='MobilMenuİconLinks'>
+              <BiCategory className='MobilMenuİconLinks'/>
           </Link>
           </Badge>
         </IconButton>
